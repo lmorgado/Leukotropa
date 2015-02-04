@@ -34,32 +34,6 @@
     
 }
 
-- (void)shootEnemyIn:(CGPoint) direction withDuration:(NSTimeInterval) duration andUseAction:(SKAction*) action {
-    
-    direction = rwNormalize(direction);
-    direction = rwMult(direction, 1000.0f);
-    
-    self.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.size.width/2];
-    self.physicsBody.dynamic = YES;
-    self.physicsBody.categoryBitMask = projectileCategory;
-    self.physicsBody.contactTestBitMask = monsterCategory;
-    self.physicsBody.collisionBitMask = 0;
-    self.physicsBody.usesPreciseCollisionDetection = YES;
-    
-    SKAction *laserFireSoundAction = [SKAction playSoundFileNamed:@"laserSound.mp3" waitForCompletion:NO];
-    SKAction *shootMoveAction = [SKAction moveTo:direction duration:duration];
-    SKAction *rotate = [SKAction rotateToAngle:rwRotation(direction) duration:0.0001];
-    
-    // Define a done action using a block that hides the laser when it hits the right edge
-    SKAction *shootDoneAction = [SKAction removeFromParent];
-    
-    SKAction *moveShootActionWithDone = [SKAction sequence:@[laserFireSoundAction, rotate, shootMoveAction, action, shootDoneAction]];
-    
-    [self runAction:moveShootActionWithDone];
-    
-    
-}
-
 - (int) getPowerDamage
 {
     return self.power;

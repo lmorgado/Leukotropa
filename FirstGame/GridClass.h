@@ -13,6 +13,7 @@ typedef enum {
     PATH,
     NIL,
     PLACEHOLDER,
+    MENU,
     AMOUNTOFTERRAINS
     
 } Terrain;

@@ -36,22 +36,24 @@
         NSLog(@"nao eh nil");
     
     [self addChild:background];
-    //FIM
+    //FIM - Imagem Background
     
     //Botao Jogar
     self.startButton = [[UIButton alloc] initWithFrame:CGRectMake(size.width - 200.0f, size.height - 100.0f, 100.0f, 75.0f)];
     self.startButton.backgroundColor = [[UIColor alloc] initWithRed:0.9f green:0.2f blue:0.6f alpha:0.6];
     [self.startButton setTitle:@"Jogar" forState:UIControlStateNormal];
     [self.startButton addTarget:self action:@selector(goNextScreen) forControlEvents:UIControlEventTouchUpInside];
+    //FIM - Botão Jogar
     
     
-    //SOM
+    //Som
     NSError *error;
     NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"Blackmoor Colossus (No Vocals)" withExtension:@"mp3"];
     self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
     self.backgroundMusicPlayer.numberOfLoops = -1;
     [self.backgroundMusicPlayer prepareToPlay];
     [self.backgroundMusicPlayer play];
+    //FIM - Som
     
     return self;
 }

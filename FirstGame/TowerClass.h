@@ -14,7 +14,9 @@ typedef enum {
     INDIANTOWER,
     SPACETOWER,
     BOMBTOWER,
-    FIRETOWER
+    FIRETOWER,
+    HERO,
+    NUMOFTOWERTYPES
 } TypeOfTower;
 
 
@@ -26,5 +28,6 @@ typedef enum {
 -(NSString *)imageName;
 -(float)getRange;
 -(float)getDelay;
+-(TypeOfTower)getType;
 
 @end

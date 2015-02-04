@@ -47,6 +47,13 @@
             self.imgName = @"fireTower.png";
             break;
         }
+        case HERO:
+        {
+            self.imgName = @"hero.png";
+            break;
+        }
+        default:
+            break;
     }
     //FIM
     
@@ -85,6 +92,8 @@
                 self.lastSpawnTimeInterval = 5.0f;
                 break;
             }
+            default:
+                break;
         }
     }
     //FIM
@@ -111,6 +120,11 @@
 -(float)getDelay
 {
     return self.delay;
+}
+
+-(TypeOfTower)getType
+{
+    return self.type;
 }
 
 @end

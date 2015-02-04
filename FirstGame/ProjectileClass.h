@@ -8,20 +8,11 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-//typedef enum {
-//    
-//    STRONG = 4,
-//    MEDIUM = 2,
-//    WEAK   = 0
-//    
-//} power;
-
 
 
 @interface ProjectileClass : SKSpriteNode
 
 - (instancetype)initWithImageNamed:(NSString*) imgName inPosition:(CGPoint) position powerDamage:(int) power;
-- (void)shootEnemyIn:(CGPoint) direction withDuration:(NSTimeInterval) duration andUseAction:(SKAction*) action;
 - (int) getPowerDamage;
 
 @end

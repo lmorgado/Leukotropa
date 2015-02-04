@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4561D5511A796A1300FF16E8 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 4561D5501A796A1300FF16E8 /* GameOverScene.m */; };
 		4561D5561A797FD800FF16E8 /* RankingScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 4561D5551A797FD800FF16E8 /* RankingScene.m */; };
+		458DCED71A82A7D10050BD01 /* SingleShot.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DCED61A82A7D10050BD01 /* SingleShot.m */; };
 		45BC034C1A7A5C7000528D95 /* FirstScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 45BC034B1A7A5C7000528D95 /* FirstScene.m */; };
 		45BC03501A7A60A300528D95 /* tela.png in Resources */ = {isa = PBXBuildFile; fileRef = 45BC034F1A7A60A300528D95 /* tela.png */; };
 		45BC03521A7A65E000528D95 /* Blackmoor Colossus (No Vocals).mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 45BC03511A7A65E000528D95 /* Blackmoor Colossus (No Vocals).mp3 */; };
@@ -27,32 +28,20 @@
 		ECE5E7041A792B1F00469258 /* ProjectileClass.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE5E7031A792B1F00469258 /* ProjectileClass.m */; };
 		ECE5E7071A792B3200469258 /* GridClass.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE5E7061A792B3200469258 /* GridClass.m */; };
 		ECE5E70A1A792B4200469258 /* TowerClass.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE5E7091A792B4200469258 /* TowerClass.m */; };
-		ECE5E7281A792CDA00469258 /* laserShot.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E70C1A792CDA00469258 /* laserShot.png */; };
+		ECE5E7281A792CDA00469258 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E70C1A792CDA00469258 /* arrow.png */; };
 		ECE5E7291A792CDA00469258 /* laserSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E70D1A792CDA00469258 /* laserSound.mp3 */; };
-		ECE5E72A1A792CDA00469258 /* Mons 1.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E70F1A792CDA00469258 /* Mons 1.png */; };
-		ECE5E72B1A792CDA00469258 /* Mons 1.svg in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E7101A792CDA00469258 /* Mons 1.svg */; };
-		ECE5E72C1A792CDA00469258 /* Mons 10.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E7111A792CDA00469258 /* Mons 10.png */; };
-		ECE5E72D1A792CDA00469258 /* Mons 10.svg in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E7121A792CDA00469258 /* Mons 10.svg */; };
-		ECE5E72E1A792CDA00469258 /* Mons 11.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E7131A792CDA00469258 /* Mons 11.png */; };
-		ECE5E72F1A792CDA00469258 /* Mons 11.svg in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E7141A792CDA00469258 /* Mons 11.svg */; };
-		ECE5E7301A792CDA00469258 /* Mons 2.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E7151A792CDA00469258 /* Mons 2.png */; };
-		ECE5E7311A792CDA00469258 /* Mons 2.svg in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E7161A792CDA00469258 /* Mons 2.svg */; };
-		ECE5E7321A792CDA00469258 /* Mons 3.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E7171A792CDA00469258 /* Mons 3.png */; };
-		ECE5E7331A792CDA00469258 /* Mons 3.svg in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E7181A792CDA00469258 /* Mons 3.svg */; };
-		ECE5E7341A792CDA00469258 /* Mons 4.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E7191A792CDA00469258 /* Mons 4.png */; };
-		ECE5E7351A792CDA00469258 /* Mons 4.svg in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E71A1A792CDA00469258 /* Mons 4.svg */; };
+		ECE5E72A1A792CDA00469258 /* indianTower.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E70F1A792CDA00469258 /* indianTower.png */; };
+		ECE5E72C1A792CDA00469258 /* spaceTower.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E7111A792CDA00469258 /* spaceTower.png */; };
+		ECE5E72E1A792CDA00469258 /* bombTower.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E7131A792CDA00469258 /* bombTower.png */; };
+		ECE5E7301A792CDA00469258 /* fireTower.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E7151A792CDA00469258 /* fireTower.png */; };
+		ECE5E7321A792CDA00469258 /* enemy_00.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E7171A792CDA00469258 /* enemy_00.png */; };
+		ECE5E7341A792CDA00469258 /* hero.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E7191A792CDA00469258 /* hero.png */; };
 		ECE5E7361A792CDA00469258 /* Mons 5.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E71B1A792CDA00469258 /* Mons 5.png */; };
-		ECE5E7371A792CDA00469258 /* Mons 5.svg in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E71C1A792CDA00469258 /* Mons 5.svg */; };
 		ECE5E7381A792CDA00469258 /* Mons 6.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E71D1A792CDA00469258 /* Mons 6.png */; };
-		ECE5E7391A792CDA00469258 /* Mons 6.svg in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E71E1A792CDA00469258 /* Mons 6.svg */; };
 		ECE5E73A1A792CDA00469258 /* Mons 7.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E71F1A792CDA00469258 /* Mons 7.png */; };
-		ECE5E73B1A792CDA00469258 /* Mons 7.svg in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E7201A792CDA00469258 /* Mons 7.svg */; };
 		ECE5E73C1A792CDA00469258 /* Mons 8.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E7211A792CDA00469258 /* Mons 8.png */; };
-		ECE5E73D1A792CDA00469258 /* Mons 8.svg in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E7221A792CDA00469258 /* Mons 8.svg */; };
 		ECE5E73E1A792CDA00469258 /* Mons 9.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E7231A792CDA00469258 /* Mons 9.png */; };
-		ECE5E73F1A792CDA00469258 /* Mons 9.svg in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E7241A792CDA00469258 /* Mons 9.svg */; };
 		ECE5E7401A792CDA00469258 /* Mons12.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E7251A792CDA00469258 /* Mons12.png */; };
-		ECE5E7411A792CDA00469258 /* Mons12.svg in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E7261A792CDA00469258 /* Mons12.svg */; };
 		ECE5E7421A792CDA00469258 /* opçao_01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ECE5E7271A792CDA00469258 /* opçao_01.jpg */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +60,8 @@
 		4561D5501A796A1300FF16E8 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
 		4561D5541A797FD800FF16E8 /* RankingScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankingScene.h; sourceTree = "<group>"; };
 		4561D5551A797FD800FF16E8 /* RankingScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankingScene.m; sourceTree = "<group>"; };
+		458DCED51A82A7D10050BD01 /* SingleShot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleShot.h; sourceTree = "<group>"; };
+		458DCED61A82A7D10050BD01 /* SingleShot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleShot.m; sourceTree = "<group>"; };
 		45BC034A1A7A5C7000528D95 /* FirstScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FirstScene.h; path = ../FirstScene.h; sourceTree = "<group>"; };
 		45BC034B1A7A5C7000528D95 /* FirstScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FirstScene.m; path = ../FirstScene.m; sourceTree = "<group>"; };
 		45BC034F1A7A60A300528D95 /* tela.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tela.png; sourceTree = "<group>"; };
@@ -102,32 +93,20 @@
 		ECE5E7081A792B4200469258 /* TowerClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TowerClass.h; sourceTree = "<group>"; };
 		ECE5E7091A792B4200469258 /* TowerClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TowerClass.m; sourceTree = "<group>"; };
 		ECE5E70B1A792C8A00469258 /* CollisionCategories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollisionCategories.h; sourceTree = "<group>"; };
-		ECE5E70C1A792CDA00469258 /* laserShot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = laserShot.png; sourceTree = "<group>"; };
+		ECE5E70C1A792CDA00469258 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		ECE5E70D1A792CDA00469258 /* laserSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = laserSound.mp3; sourceTree = "<group>"; };
-		ECE5E70F1A792CDA00469258 /* Mons 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Mons 1.png"; sourceTree = "<group>"; };
-		ECE5E7101A792CDA00469258 /* Mons 1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Mons 1.svg"; sourceTree = "<group>"; };
-		ECE5E7111A792CDA00469258 /* Mons 10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Mons 10.png"; sourceTree = "<group>"; };
-		ECE5E7121A792CDA00469258 /* Mons 10.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Mons 10.svg"; sourceTree = "<group>"; };
-		ECE5E7131A792CDA00469258 /* Mons 11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Mons 11.png"; sourceTree = "<group>"; };
-		ECE5E7141A792CDA00469258 /* Mons 11.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Mons 11.svg"; sourceTree = "<group>"; };
-		ECE5E7151A792CDA00469258 /* Mons 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Mons 2.png"; sourceTree = "<group>"; };
-		ECE5E7161A792CDA00469258 /* Mons 2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Mons 2.svg"; sourceTree = "<group>"; };
-		ECE5E7171A792CDA00469258 /* Mons 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Mons 3.png"; sourceTree = "<group>"; };
-		ECE5E7181A792CDA00469258 /* Mons 3.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Mons 3.svg"; sourceTree = "<group>"; };
-		ECE5E7191A792CDA00469258 /* Mons 4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Mons 4.png"; sourceTree = "<group>"; };
-		ECE5E71A1A792CDA00469258 /* Mons 4.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Mons 4.svg"; sourceTree = "<group>"; };
+		ECE5E70F1A792CDA00469258 /* indianTower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indianTower.png; sourceTree = "<group>"; };
+		ECE5E7111A792CDA00469258 /* spaceTower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spaceTower.png; sourceTree = "<group>"; };
+		ECE5E7131A792CDA00469258 /* bombTower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bombTower.png; sourceTree = "<group>"; };
+		ECE5E7151A792CDA00469258 /* fireTower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fireTower.png; sourceTree = "<group>"; };
+		ECE5E7171A792CDA00469258 /* enemy_00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy_00.png; sourceTree = "<group>"; };
+		ECE5E7191A792CDA00469258 /* hero.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hero.png; sourceTree = "<group>"; };
 		ECE5E71B1A792CDA00469258 /* Mons 5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Mons 5.png"; sourceTree = "<group>"; };
-		ECE5E71C1A792CDA00469258 /* Mons 5.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Mons 5.svg"; sourceTree = "<group>"; };
 		ECE5E71D1A792CDA00469258 /* Mons 6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Mons 6.png"; sourceTree = "<group>"; };
-		ECE5E71E1A792CDA00469258 /* Mons 6.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Mons 6.svg"; sourceTree = "<group>"; };
 		ECE5E71F1A792CDA00469258 /* Mons 7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Mons 7.png"; sourceTree = "<group>"; };
-		ECE5E7201A792CDA00469258 /* Mons 7.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Mons 7.svg"; sourceTree = "<group>"; };
 		ECE5E7211A792CDA00469258 /* Mons 8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Mons 8.png"; sourceTree = "<group>"; };
-		ECE5E7221A792CDA00469258 /* Mons 8.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Mons 8.svg"; sourceTree = "<group>"; };
 		ECE5E7231A792CDA00469258 /* Mons 9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Mons 9.png"; sourceTree = "<group>"; };
-		ECE5E7241A792CDA00469258 /* Mons 9.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Mons 9.svg"; sourceTree = "<group>"; };
 		ECE5E7251A792CDA00469258 /* Mons12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mons12.png; sourceTree = "<group>"; };
-		ECE5E7261A792CDA00469258 /* Mons12.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Mons12.svg; sourceTree = "<group>"; };
 		ECE5E7271A792CDA00469258 /* opçao_01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "opçao_01.jpg"; sourceTree = "<group>"; };
 		ECE5E7431A792CEF00469258 /* Algebra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Algebra.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -155,7 +134,7 @@
 			children = (
 				ECCE9D8E1A814003006B04CD /* sceneConfig.txt */,
 				EC507FA11A7FF7BB003DE0BD /* Ranking.plist */,
-				ECE5E70C1A792CDA00469258 /* laserShot.png */,
+				ECE5E70C1A792CDA00469258 /* arrow.png */,
 				45BC03511A7A65E000528D95 /* Blackmoor Colossus (No Vocals).mp3 */,
 				ECE5E70D1A792CDA00469258 /* laserSound.mp3 */,
 				ECE5E70E1A792CDA00469258 /* Mons 2 */,
@@ -197,6 +176,8 @@
 				ECE5E70B1A792C8A00469258 /* CollisionCategories.h */,
 				ECE5E7051A792B3200469258 /* GridClass.h */,
 				ECE5E7061A792B3200469258 /* GridClass.m */,
+				458DCED51A82A7D10050BD01 /* SingleShot.h */,
+				458DCED61A82A7D10050BD01 /* SingleShot.m */,
 				ECE5E7021A792B1F00469258 /* ProjectileClass.h */,
 				ECE5E7031A792B1F00469258 /* ProjectileClass.m */,
 				ECE5E6E01A7926B200469258 /* GameViewController.h */,
@@ -239,30 +220,18 @@
 			isa = PBXGroup;
 			children = (
 				45BC034F1A7A60A300528D95 /* tela.png */,
-				ECE5E70F1A792CDA00469258 /* Mons 1.png */,
-				ECE5E7101A792CDA00469258 /* Mons 1.svg */,
-				ECE5E7111A792CDA00469258 /* Mons 10.png */,
-				ECE5E7121A792CDA00469258 /* Mons 10.svg */,
-				ECE5E7131A792CDA00469258 /* Mons 11.png */,
-				ECE5E7141A792CDA00469258 /* Mons 11.svg */,
-				ECE5E7151A792CDA00469258 /* Mons 2.png */,
-				ECE5E7161A792CDA00469258 /* Mons 2.svg */,
-				ECE5E7171A792CDA00469258 /* Mons 3.png */,
-				ECE5E7181A792CDA00469258 /* Mons 3.svg */,
-				ECE5E7191A792CDA00469258 /* Mons 4.png */,
-				ECE5E71A1A792CDA00469258 /* Mons 4.svg */,
+				ECE5E70F1A792CDA00469258 /* indianTower.png */,
+				ECE5E7111A792CDA00469258 /* spaceTower.png */,
+				ECE5E7131A792CDA00469258 /* bombTower.png */,
+				ECE5E7151A792CDA00469258 /* fireTower.png */,
+				ECE5E7171A792CDA00469258 /* enemy_00.png */,
+				ECE5E7191A792CDA00469258 /* hero.png */,
 				ECE5E71B1A792CDA00469258 /* Mons 5.png */,
-				ECE5E71C1A792CDA00469258 /* Mons 5.svg */,
 				ECE5E71D1A792CDA00469258 /* Mons 6.png */,
-				ECE5E71E1A792CDA00469258 /* Mons 6.svg */,
 				ECE5E71F1A792CDA00469258 /* Mons 7.png */,
-				ECE5E7201A792CDA00469258 /* Mons 7.svg */,
 				ECE5E7211A792CDA00469258 /* Mons 8.png */,
-				ECE5E7221A792CDA00469258 /* Mons 8.svg */,
 				ECE5E7231A792CDA00469258 /* Mons 9.png */,
-				ECE5E7241A792CDA00469258 /* Mons 9.svg */,
 				ECE5E7251A792CDA00469258 /* Mons12.png */,
-				ECE5E7261A792CDA00469258 /* Mons12.svg */,
 			);
 			path = "Mons 2";
 			sourceTree = "<group>";
@@ -348,41 +317,29 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECE5E7411A792CDA00469258 /* Mons12.svg in Resources */,
 				ECE5E7291A792CDA00469258 /* laserSound.mp3 in Resources */,
-				ECE5E73D1A792CDA00469258 /* Mons 8.svg in Resources */,
 				ECE5E6EA1A7926B200469258 /* LaunchScreen.xib in Resources */,
 				ECE5E6E71A7926B200469258 /* Images.xcassets in Resources */,
-				ECE5E72A1A792CDA00469258 /* Mons 1.png in Resources */,
-				ECE5E7301A792CDA00469258 /* Mons 2.png in Resources */,
+				ECE5E72A1A792CDA00469258 /* indianTower.png in Resources */,
+				ECE5E7301A792CDA00469258 /* fireTower.png in Resources */,
 				ECCE9D8F1A814003006B04CD /* sceneConfig.txt in Resources */,
-				ECE5E72F1A792CDA00469258 /* Mons 11.svg in Resources */,
-				ECE5E72C1A792CDA00469258 /* Mons 10.png in Resources */,
+				ECE5E72C1A792CDA00469258 /* spaceTower.png in Resources */,
 				ECE5E7361A792CDA00469258 /* Mons 5.png in Resources */,
-				ECE5E72E1A792CDA00469258 /* Mons 11.png in Resources */,
+				ECE5E72E1A792CDA00469258 /* bombTower.png in Resources */,
 				45BC03501A7A60A300528D95 /* tela.png in Resources */,
-				ECE5E7331A792CDA00469258 /* Mons 3.svg in Resources */,
-				ECE5E7371A792CDA00469258 /* Mons 5.svg in Resources */,
 				ECE5E6DF1A7926B200469258 /* GameScene.sks in Resources */,
 				EC507FA21A7FF7BB003DE0BD /* Ranking.plist in Resources */,
 				45BC03521A7A65E000528D95 /* Blackmoor Colossus (No Vocals).mp3 in Resources */,
-				ECE5E7281A792CDA00469258 /* laserShot.png in Resources */,
-				ECE5E7321A792CDA00469258 /* Mons 3.png in Resources */,
-				ECE5E72B1A792CDA00469258 /* Mons 1.svg in Resources */,
+				ECE5E7281A792CDA00469258 /* arrow.png in Resources */,
+				ECE5E7321A792CDA00469258 /* enemy_00.png in Resources */,
 				ECE5E73C1A792CDA00469258 /* Mons 8.png in Resources */,
 				ECE5E7401A792CDA00469258 /* Mons12.png in Resources */,
 				ECE5E73A1A792CDA00469258 /* Mons 7.png in Resources */,
-				ECE5E73F1A792CDA00469258 /* Mons 9.svg in Resources */,
-				ECE5E7391A792CDA00469258 /* Mons 6.svg in Resources */,
-				ECE5E7311A792CDA00469258 /* Mons 2.svg in Resources */,
-				ECE5E7341A792CDA00469258 /* Mons 4.png in Resources */,
+				ECE5E7341A792CDA00469258 /* hero.png in Resources */,
 				ECE5E6E51A7926B200469258 /* Main.storyboard in Resources */,
 				ECE5E7421A792CDA00469258 /* opçao_01.jpg in Resources */,
 				ECE5E73E1A792CDA00469258 /* Mons 9.png in Resources */,
-				ECE5E73B1A792CDA00469258 /* Mons 7.svg in Resources */,
-				ECE5E72D1A792CDA00469258 /* Mons 10.svg in Resources */,
 				ECE5E7381A792CDA00469258 /* Mons 6.png in Resources */,
-				ECE5E7351A792CDA00469258 /* Mons 4.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +364,7 @@
 				45BC034C1A7A5C7000528D95 /* FirstScene.m in Sources */,
 				ECE5E7071A792B3200469258 /* GridClass.m in Sources */,
 				4561D5561A797FD800FF16E8 /* RankingScene.m in Sources */,
+				458DCED71A82A7D10050BD01 /* SingleShot.m in Sources */,
 				ECE5E6DD1A7926B200469258 /* GameScene.m in Sources */,
 				ECE5E6D71A7926B200469258 /* main.m in Sources */,
 				ECE5E70A1A792B4200469258 /* TowerClass.m in Sources */,

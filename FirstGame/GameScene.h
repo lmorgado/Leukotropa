@@ -12,6 +12,6 @@
 
 //@property (nonatomic) UIButton *rankingButton;
 
-- (void) removeLife;
+- (void) removeLife:(int)damage;
 
 @end

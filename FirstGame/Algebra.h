@@ -12,6 +12,11 @@
 static const float ALGEBRA_PI = 3.14159265358979f;
 static const float ALGEBRA_PI_BY2 = 1.5707963267949;
 
+static inline float degToRad(float degree) {
+    
+    return degree / 180.0f * M_PI;
+}
+
 static inline CGPoint rwAdd(CGPoint a, CGPoint b) {
     return CGPointMake(a.x + b.x, a.y + b.y);
 }

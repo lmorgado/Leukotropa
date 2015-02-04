@@ -26,7 +26,7 @@
     if(imgName == nil)
     {
         // self = [super initWithColor:[[UIColor alloc] initWithRed:i/8.0f green:j/8.0f blue:arc4random_uniform(64)/64.0f alpha:0.5f] size:size];
-        if(t == NIL || t == PLACEHOLDER)
+        if(t == NIL || t == PLACEHOLDER || t == MENU)
             self = [super initWithColor:[[UIColor alloc] initWithRed:0.0f green:0.0f blue:0.0f alpha:0.001f] size:size];
         else
             self = [super initWithColor:[[UIColor alloc] initWithRed:i/8.0f green:j/8.0f blue:arc4random_uniform(64)/64.0f alpha:0.5f] size:size];

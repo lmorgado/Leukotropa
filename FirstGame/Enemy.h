@@ -20,7 +20,7 @@ typedef enum {
 
 @interface Enemy : SKSpriteNode
 
-- (instancetype) initWithSpeed:(float) speed withPosition:(CGPoint) position withLife: (int)life image:(NSString*)imgName andDamage:(int)damage;
+- (instancetype) initWithPosition: (CGPoint)position withTypeEnemy: (ENEMY_TYPE)enemyType;
 
 - (void) moveTo:(CGMutablePathRef) actionPath pathLength:(float)distance gameScene:(GameScene*) scene;
 
@@ -29,5 +29,7 @@ typedef enum {
 - (BOOL) causeDamage:(int)damage;
 
 - (BOOL) getIsActive;
+
+- (int) monsterScore;
 
 @end
