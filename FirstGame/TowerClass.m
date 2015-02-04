@@ -14,36 +14,100 @@
 @property (nonatomic) float delay;
 @property (nonatomic) BOOL isActive;
 @property (nonatomic) NSString * imgName;
+@property (nonatomic) TypeOfTower type;
 
 @end
 
 @implementation TowerClass
 
-
--(instancetype)initWithImageNamed:(NSString *)name
+//Método Construtor
+-(instancetype)initWithType: (TypeOfTower) type
 {
-    if(self = [super initWithImageNamed:name])
+    
+    //Descobre qual imagem usar.
+    switch(type)
     {
-        self.range = 100.0f;
-        self.delay = 0.5f;
-        self.isActive = NO;
-        self.imgName = name;
-        self.lastSpawnTimeInterval = 5.0f;
+        case INDIANTOWER:
+        {
+            self.imgName = @"indianTower.png";
+            break;
+        }
+        case SPACETOWER:
+        {
+            self.imgName = @"spaceTower.png";
+            break;
+        }
+        case BOMBTOWER:
+        {
+            self.imgName = @"bombTower.png";
+            break;
+        }
+        case FIRETOWER:
+        {
+            self.imgName = @"fireTower.png";
+            break;
+        }
     }
+    //FIM
+    
+    //Seta todas as características
+    if(self = [super initWithImageNamed:self.imgName])
+    {
+        self.type = type;
+        
+        switch(type)
+        {
+            case INDIANTOWER:
+            {
+                self.range = 100.0f;
+                self.delay = 0.5f;
+                self.lastSpawnTimeInterval = 5.0f;
+                break;
+            }
+            case SPACETOWER:
+            {
+                self.range = 100.0f;
+                self.delay = 0.5f;
+                self.lastSpawnTimeInterval = 5.0f;
+                break;
+            }
+            case BOMBTOWER:
+            {
+                self.range = 100.0f;
+                self.delay = 0.5f;
+                self.lastSpawnTimeInterval = 5.0f;
+                break;
+            }
+            case FIRETOWER:
+            {
+                self.range = 100.0f;
+                self.delay = 0.5f;
+                self.lastSpawnTimeInterval = 5.0f;
+                break;
+            }
+        }
+    }
+    //FIM
+    
+    //Seta como não ativa.
+    self.isActive = NO;
     
     return self;
 }
 
+//Retorna o nome da imagem.
 -(NSString *)imageName
 {
     return self.imgName;
 }
 
+//Retorna o alcance da torre.
 -(float)getRange
 {
     return self.range;
 }
 
+//Retorna o delay de tiro da torre.
 -(float)getDelay
 {
     return self.delay;

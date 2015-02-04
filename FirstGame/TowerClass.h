@@ -8,11 +8,21 @@
 
 #import <SpriteKit/SpriteKit.h>
 
+
+typedef enum {
+    
+    INDIANTOWER,
+    SPACETOWER,
+    BOMBTOWER,
+    FIRETOWER
+} TypeOfTower;
+
+
 @interface TowerClass : SKSpriteNode
 
 @property (nonatomic) NSTimeInterval lastSpawnTimeInterval;
 
--(instancetype)initWithImageNamed:(NSString *)name;
+-(instancetype)initWithType: (TypeOfTower) type;
 -(NSString *)imageName;
 -(float)getRange;
 -(float)getDelay;
