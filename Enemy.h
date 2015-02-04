@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Jordan Rodrigues Rangel. All rights reserved.
 //
 
+//teste editando
+
 #import <SpriteKit/SpriteKit.h>
 #import "GameScene.h"
 
