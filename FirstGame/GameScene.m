@@ -110,7 +110,7 @@ static NSString * const kTowerNodeName = @"movable";
         
         //Botao de Rounds
         self.playable = NO;
-        self.roundButton = [[UIButton alloc] initWithFrame:CGRectMake([matrix[0][5] gridCenter].x - (self.gridCellWidth/2), size.height - [matrix[0][6] gridCenter].y - (self.gridCellHeight/2), 2*self.gridCellWidth, self.gridCellHeight)];
+        self.roundButton = [[UIButton alloc] initWithFrame:CGRectMake([matrix[0][5] gridCenter].x - (self.gridCellWidth/2), size.height - [matrix[0][6] gridCenter].y - (self.gridCellHeight/2), 4*self.gridCellWidth, self.gridCellHeight)];
         [self.roundButton setTitle:@"Começar Round" forState:UIControlStateNormal];
         self.roundButton.backgroundColor = [[UIColor alloc] initWithRed:0.9f green:0.2f blue:0.6f alpha:0.6];
         [self.roundButton addTarget:self action:@selector(startRound) forControlEvents:UIControlEventTouchUpInside];
@@ -167,8 +167,6 @@ static NSString * const kTowerNodeName = @"movable";
     
     //Marca o node selecionado.
     SKSpriteNode *touchedNode = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
-    
-    NSString *teste =[touchedNode name] ;
     
     //Veirifica se é um novo node selecionado.
     if(![_selectedNode isEqual:touchedNode]) {
@@ -558,6 +556,7 @@ static NSString * const kTowerNodeName = @"movable";
         matrix[lin][col] = [[GridClass alloc] initWithI:lin withJ:col ofTerrain:PATH withImageNamed:nil withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
         
         [self.path addObject:matrix[lin][col]];
+        [self addChild:matrix[lin][col]];
     }
     
     fscanf(sceneConfig, " %[^\n]", strTemp);
@@ -575,6 +574,7 @@ static NSString * const kTowerNodeName = @"movable";
         for(int col = 0; col < COLS; col++)
         {
             matrix[lin][col] = [[GridClass alloc] initWithI:lin withJ:col ofTerrain:NIL withImageNamed:nil withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
+            [self addChild:matrix[lin][col]];
         }
     }
     
@@ -583,6 +583,7 @@ static NSString * const kTowerNodeName = @"movable";
         for(int col = 0; col < COLS; col++)
         {
             matrix[lin][col] = [[GridClass alloc] initWithI:lin withJ:col ofTerrain:NIL withImageNamed:nil withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
+            [self addChild:matrix[lin][col]];
         }
     }
     
@@ -614,6 +615,7 @@ static NSString * const kTowerNodeName = @"movable";
         [sprite setPosition:cellCenter];
         
         //Adiciona a torre
+        [self addChild:matrix[3][col]];
         [self addChild:sprite];
     }
     
@@ -631,9 +633,11 @@ static NSString * const kTowerNodeName = @"movable";
         for(int j = 0; j < COLS; j++)
         {
             if(matrix[i][j] == nil)
+            {
                 matrix[i][j] = [[GridClass alloc] initWithI:i withJ:j ofTerrain:PLACEHOLDER withImageNamed:nil withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
             
-            [self addChild:matrix[i][j]];
+                [self addChild:matrix[i][j]];
+            }
         }
     }
 
