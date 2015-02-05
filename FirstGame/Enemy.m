@@ -30,7 +30,6 @@
 
 @implementation Enemy
 
-
 // METODO CONSTRUTOR DO INIMIGO
 - (instancetype) initWithPosition: (CGPoint)position withTypeEnemy: (ENEMY_TYPE)enemyType
 {
@@ -102,7 +101,6 @@
 // METODO INIMIGO PERCORRE TODO CAMINHO NA SCENE, MORRENDO AO FIM DO CAMINHO
 - (void) moveTo: (CGMutablePathRef)actionPath pathLength: (float)distance gameScene: (GameScene*)scene
 {
-    
     SKAction *followline = [SKAction followPath:actionPath asOffset:NO orientToPath:NO duration:distance/self.speed];
     
     SKAction *removeLife = [SKAction runBlock:^{
@@ -115,6 +113,7 @@
     [self runAction : finalAction];
 }
 // FIM
+
 
 // METODO OBTEM VELOCIDADE
 - (float) getSpeed

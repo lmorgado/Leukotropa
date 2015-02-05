@@ -25,8 +25,7 @@
         skView.showsFPS = YES;
         skView.showsNodeCount = YES;
         
-        SKScene * scene = [FirstScene sceneWithSize:skView.bounds.size];
-        //FirstScene * scene = [[FirstScene alloc] initWithSize:skView.bounds.size];
+        FirstScene * scene = [FirstScene sceneWithSize:skView.bounds.size];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         
         [skView presentScene:scene];

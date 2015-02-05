@@ -22,7 +22,6 @@
 
 #define COLS 16
 #define LINS 16
-#define MONSTERS_SIZE 5
 #define TOWERS_SIZE 10
 #define NUMBER_OF_LIVES 5
 
@@ -32,7 +31,6 @@ static NSString * const kTowerNodeName = @"movable";
 
 {
     GridClass * matrix[LINS][COLS];
-//    GridClass ** path;
 }
 
 @property (nonatomic) float gridCellWidth;
@@ -57,6 +55,9 @@ static NSString * const kTowerNodeName = @"movable";
 @property (nonatomic) SKLabelNode *scoreLabel;
 
 @property (nonatomic) NSMutableArray * path;
+@property (nonatomic) CGMutablePathRef actionPath;
+@property (nonatomic) float pathLength;
+@property (nonatomic) BOOL pathNotCalculated;
 
 @property (nonatomic) int monstersOut;
 
@@ -97,6 +98,9 @@ static NSString * const kTowerNodeName = @"movable";
         self.physicsWorld.contactDelegate = self;
         //FIM - Inicializa a física
         
+        //Bool que diz que o caminho ainda não foi calculado (o CGMutablePath)
+        self.pathNotCalculated = YES;
+        //FIM - Cálculo do caminho
         
         //Inicializa as vidas do jogador.
         self.lives = NUMBER_OF_LIVES;
@@ -171,7 +175,7 @@ static NSString * const kTowerNodeName = @"movable";
     SKSpriteNode *touchedNode = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
     
     //Veirifica se é um novo node selecionado.
-    if(![_selectedNode isEqual:touchedNode]) {
+    if(![_selectedNode isEqual:touchedNode] && [[touchedNode name] isEqualToString:kTowerNodeName]) {
         
         //Ajeita a posição do node.
         [_selectedNode removeAllActions];
@@ -179,19 +183,16 @@ static NSString * const kTowerNodeName = @"movable";
         
         //O marca como o selecionado.
         _selectedNode = (TowerClass *) touchedNode;
+
+        //Guarda a posição original.
+        self.originalSelectedNodePosition = self.selectedNode.position;
         
-        //Se for uma torre.
-        if([[touchedNode name] isEqualToString:kTowerNodeName]) {
-            
-            //Guarda a posição original.
-            self.originalSelectedNodePosition = self.selectedNode.position;
-            
-            //Aniamação de rotação enquanto o node está selecionado.
-            SKAction *sequence = [SKAction sequence:@[[SKAction rotateByAngle:degToRad(-4.0f) duration:0.1],
-                                                      [SKAction rotateByAngle:0.0 duration:0.1],
-                                                      [SKAction rotateByAngle:degToRad(4.0f) duration:0.1]]];
-            [_selectedNode runAction:[SKAction repeatActionForever:sequence]];
-        }
+        //Aniamação de rotação enquanto o node está selecionado.
+        SKAction *sequence = [SKAction sequence:@[[SKAction rotateByAngle:degToRad(-4.0f) duration:0.1],
+                                                  [SKAction rotateByAngle:0.0 duration:0.1],
+                                                  [SKAction rotateByAngle:degToRad(4.0f) duration:0.1]]];
+        
+        [_selectedNode runAction:[SKAction repeatActionForever:sequence]];
     }
     
 }
@@ -306,24 +307,32 @@ static NSString * const kTowerNodeName = @"movable";
             //Cria o caminho a ser percorrido pelo monstro.
             float pathLength = 0.0f;
         
-            CGMutablePathRef actionPath = CGPathCreateMutable();
-            CGPathMoveToPoint(actionPath, NULL, enemy.position.x, enemy.position.y);
-            
-            int pathSize = [self.path count];
-            
-            for(int i=0;i<pathSize;i++)
+            if(self.pathNotCalculated)
             {
-                CGPathAddLineToPoint(actionPath, NULL, [self.path[i] gridCenter].x, [self.path[i] gridCenter].y);
-                if(i < (pathSize-1))
-                    pathLength += rwLength(rwSub([self.path[i+1] gridCenter], [self.path[i] gridCenter]));
+                self.pathNotCalculated = NO;
+                CGMutablePathRef actionPath = CGPathCreateMutable();
+                CGPathMoveToPoint(actionPath, NULL, enemy.position.x, enemy.position.y);
+                
+                int pathSize = (int) [self.path count];
+                
+                for(int i=0;i<pathSize;i++)
+                {
+                    CGPathAddLineToPoint(actionPath, NULL, [self.path[i] gridCenter].x, [self.path[i] gridCenter].y);
+                    if(i < (pathSize-1))
+                        pathLength += rwLength(rwSub([self.path[i+1] gridCenter], [self.path[i] gridCenter]));
+                }
+                
+                pathLength += self.gridCellWidth/2.0f + enemy.size.width/2.0f;
+                CGPathAddLineToPoint(actionPath, NULL, [self.path[pathSize-1] gridCenter].x + self.gridCellWidth/2.0f + enemy.size.width/2.0f, [self.path[pathSize-1] gridCenter].y);
+                
+                self.actionPath = actionPath;
+                self.pathLength = pathLength;
             }
-        
-            pathLength += self.gridCellWidth/2.0f + enemy.size.width/2.0f;
-            CGPathAddLineToPoint(actionPath, NULL, [self.path[pathSize-1] gridCenter].x + self.gridCellWidth/2.0f + enemy.size.width/2.0f, [self.path[pathSize-1] gridCenter].y);
-        
+            
             //Envia o caminho a ser percorrido para o monstro.
-            [enemy moveTo:actionPath pathLength:pathLength gameScene:self];
-        
+            [enemy moveTo:self.actionPath pathLength:self.pathLength gameScene:self];
+
+            
         }
         
         [self towerMonitoringwithTimeSinceLastUpdate: timeSinceLast];
@@ -663,12 +672,12 @@ static NSString * const kTowerNodeName = @"movable";
     self.monstersRespawned = 0;
     
     //Posição inicial dos monstros
-    GridClass * firstGrid = self.path[0];
+    CGPoint firstGridCenter = [self.path[0] gridCenter];
     
     
     //Cria os monstros fracos
     for(int i=0;i<weakMonsters;i++){
-        Enemy *enemy = [self createSingleMonsterOfType:LEVEL_00 withPosition:[firstGrid gridCenter]];
+        Enemy *enemy = [self createSingleMonsterOfType:LEVEL_00 withPosition:firstGridCenter];
         
         //Cria o monstro no Vetor de Monstros
         [self.monsters addObject:enemy];
@@ -677,7 +686,7 @@ static NSString * const kTowerNodeName = @"movable";
     
     //Cria os monstros médios
     for(int i=0;i<averageMonsters;i++){
-        Enemy *enemy = [self createSingleMonsterOfType:LEVEL_01 withPosition:[firstGrid gridCenter]];
+        Enemy *enemy = [self createSingleMonsterOfType:LEVEL_01 withPosition:firstGridCenter];
         
         //Cria o monstro no Vetor de Monstros
         [self.monsters addObject:enemy];
@@ -685,19 +694,19 @@ static NSString * const kTowerNodeName = @"movable";
     
     //Cria os monstros difíceis
     for(int i=0;i<strongMonsters;i++){
-        Enemy *enemy = [self createSingleMonsterOfType:LEVEL_02 withPosition:[firstGrid gridCenter]];
+        Enemy *enemy = [self createSingleMonsterOfType:LEVEL_02 withPosition:firstGridCenter];
         
         //Cria o monstro no Vetor de Monstros
         [self.monsters addObject:enemy];
     }
     
     //Shuffle dos monstros sem contar com o boss
-    [self shuffleArray:self.monsters withSize:[self.monsters count]-boss];
+    [self shuffleArray:self.monsters withSize:(int)[self.monsters count]-boss];
     
     //Cria o Boss no final do array
     if(boss)
     {
-        Enemy *enemy = [self createSingleMonsterOfType:LEVEL_03 withPosition:[firstGrid gridCenter]];
+        Enemy *enemy = [self createSingleMonsterOfType:LEVEL_03 withPosition:firstGridCenter];
         
         //Cria o boss no vetor de monstros
         [self.monsters addObject:enemy];
