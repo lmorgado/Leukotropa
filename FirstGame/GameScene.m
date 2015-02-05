@@ -380,7 +380,7 @@ static NSString * const kTowerNodeName = @"movable";
                     {
                         case INDIANTOWER:
                         {
-                            SingleShot * projectile = [[SingleShot alloc] initWithImageNamed:@"laserShot.png" inPosition:tower.position powerDamage:30];
+                            SingleShot * projectile = [[SingleShot alloc] initWithImageNamed:@"arrow.png" inPosition:tower.position powerDamage:30];
                             
                             [projectile shootEnemyIn:direction withDuration:1.0f];
                             [self addChild:projectile];
@@ -569,6 +569,7 @@ static NSString * const kTowerNodeName = @"movable";
 //Método que separa as duas linhas superiores e inferiores de grid como NIL e a posição das torres como MENU.
 -(void) createMenu
 {
+    //Duas linhas superiores
     for(int lin = 0; lin < 2; lin++)
     {
         for(int col = 0; col < COLS; col++)
@@ -578,7 +579,8 @@ static NSString * const kTowerNodeName = @"movable";
         }
     }
     
-    for(int lin = LINS-2; lin < LINS; lin++)
+    //Uma linha inferior
+    for(int lin = LINS-1; lin < LINS; lin++)
     {
         for(int col = 0; col < COLS; col++)
         {
@@ -603,19 +605,18 @@ static NSString * const kTowerNodeName = @"movable";
         
         //Nomeia o sprite
         [sprite setName:kTowerNodeName];
-        NSString * teste = [sprite name];
         
         //Determina a posição da torre
         int col = COLS-1 - i;
         
-        matrix[3][col] = [[GridClass alloc] initWithI:3 withJ:col ofTerrain:MENU withImageNamed:nil withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
+        matrix[2][col] = [[GridClass alloc] initWithI:2 withJ:col ofTerrain:MENU withImageNamed:nil withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
         
-        CGPoint cellCenter = matrix[3][col].gridCenter;
+        CGPoint cellCenter = matrix[2][col].gridCenter;
         
         [sprite setPosition:cellCenter];
         
         //Adiciona a torre
-        [self addChild:matrix[3][col]];
+        [self addChild:matrix[2][col]];
         [self addChild:sprite];
     }
     
