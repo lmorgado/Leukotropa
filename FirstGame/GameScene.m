@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Jordan Rodrigues Rangel. All rights reserved.
 //
 
+//Oi Jordaaaaaaan
+
 #import <AVFoundation/AVFoundation.h>
 #import "GameScene.h"
 #import "GridClass.h"
