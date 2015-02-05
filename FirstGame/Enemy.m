@@ -67,21 +67,21 @@
             case LEVEL_00 :
                 self.givenScore = 1;
                 self.hp = 50;
-                self.speed = 10.0f;
+                self.speed = 8.0f;
                 self.damage = 1;
                 break;
              
             case LEVEL_01 :
                 self.givenScore = 3;
                 self.hp = 100;
-                self.speed = 15.0f;
+                self.speed = 10.0f;
                 self.damage = 2;
                 break;
 
             case LEVEL_02 :
                 self.givenScore = 5;
                 self.hp = 150;
-                self.speed = 20.0f;
+                self.speed = 12.0f;
                 self.damage = 3;
                 break;
                 
