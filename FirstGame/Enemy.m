@@ -59,7 +59,7 @@
     {
         CGSize size = self.size;
         
-        self.size = CGSizeMake(size.width/40.0f, size.height/40.0f);
+        self.size = CGSizeMake(size.width/10.0f, size.height/10.0f);
         
         self.position = CGPointMake(-self.size.width/2.0f, position.y);
         

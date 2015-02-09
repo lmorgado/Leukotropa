@@ -247,7 +247,7 @@ static NSString * const kTowerNodeName = @"movable";
             //Cria uma nova Torre
             TowerClass * menuSprite = [[TowerClass alloc] initWithType:[_selectedNode getType]];
             menuSprite.lastSpawnTimeInterval = 5;
-            menuSprite.size = CGSizeMake(menuSprite.size.width/40.0f, menuSprite.size.height/40.0f);
+            menuSprite.size = CGSizeMake(menuSprite.size.width/10.0f, menuSprite.size.height/10.0f);
             [menuSprite setName:kTowerNodeName];
             menuSprite.position = self.originalSelectedNodePosition;
             
@@ -337,7 +337,7 @@ static NSString * const kTowerNodeName = @"movable";
         //Respawn de monstros
         self.lastSpawnTimeInterval += timeSinceLast;
         
-        if(self.lastSpawnTimeInterval > 0.5  && self.playable && self.monstersRespawned < [self.monsters count])
+        if(self.lastSpawnTimeInterval > 0.7  && self.playable && self.monstersRespawned < [self.monsters count])
         {
             self.lastSpawnTimeInterval = 0;
         
@@ -827,7 +827,7 @@ static NSString * const kTowerNodeName = @"movable";
         sprite.lastSpawnTimeInterval = 5;
         
         //Tamanho de um frame
-        sprite.size = CGSizeMake(sprite.size.width/40.0f, sprite.size.height/40.0f);
+        sprite.size = CGSizeMake(sprite.size.width/10.0f, sprite.size.height/10.0f);
         
         //Nomeia o sprite
         [sprite setName:kTowerNodeName];
