@@ -29,5 +29,6 @@ typedef enum {
 -(float)getRange;
 -(float)getDelay;
 -(TypeOfTower)getType;
+- (int) getCost;
 
 @end

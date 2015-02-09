@@ -25,6 +25,9 @@
 //Score desse tipo de inimigo
 @property (nonatomic) int givenScore;
 
+//Dinheiro ganho por morte do inimigo.
+@property (nonatomic) int reward;
+
 @end
 
 
@@ -69,6 +72,7 @@
                 self.hp = 50;
                 self.speed = 8.0f;
                 self.damage = 1;
+                self.reward = 5;
                 break;
              
             case LEVEL_01 :
@@ -76,6 +80,7 @@
                 self.hp = 100;
                 self.speed = 10.0f;
                 self.damage = 2;
+                self.reward = 10;
                 break;
 
             case LEVEL_02 :
@@ -83,6 +88,7 @@
                 self.hp = 150;
                 self.speed = 12.0f;
                 self.damage = 3;
+                self.reward = 15;
                 break;
                 
             case LEVEL_03 :
@@ -90,6 +96,7 @@
                 self.hp = 2500;
                 self.speed = 2.5f;
                 self.damage = 9999999;
+                self.reward = 0;
                 break;
         }
         
@@ -153,5 +160,11 @@
     return self.givenScore;
 }
 // FIM
+
+//Retorna a quantidade de coins que o usuarios ganha ao matar o monstro.
+-(int) getReward
+{
+    return self.reward;
+}
 
 @end

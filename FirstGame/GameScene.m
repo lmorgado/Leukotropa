@@ -59,6 +59,8 @@ static NSString * const kTowerNodeName = @"movable";
 @property (nonatomic) int score;
 @property (nonatomic) SKLabelNode *scoreLabel;
 @property (nonatomic) BOOL extraRound;
+@property (nonatomic) int coins;
+@property (nonatomic) NSMutableArray * towersFromMenu;
 
 @property (nonatomic) NSMutableArray * enemyPath;
 @property (nonatomic) NSMutableArray * redPath;
@@ -73,13 +75,19 @@ static NSString * const kTowerNodeName = @"movable";
     
     if (self = [super initWithSize:size]) {
         
+        NSLog(@"%f x %f y",size.width, size.height);
+        
         // Imagem Background
-        SKSpriteNode * background = [[SKSpriteNode alloc] initWithImageNamed:@"opçao_01.jpg"];
+        SKSpriteNode * background = [[SKSpriteNode alloc] initWithImageNamed:@"Background4.png"];
         background.position = CGPointMake(size.width/2.0f, size.height/2.0f);
         background.size = size;
         
         [self addChild:background];
         //FIM - Imagem Background
+        
+        //Coins do Usuário
+        self.coins = 100;
+        //FIM
         
         //Codigo do Grid
         self.gridCellHeight = size.height/LINS;
@@ -108,7 +116,7 @@ static NSString * const kTowerNodeName = @"movable";
         CGPoint labelPosition = CGPointMake([matrix[LINS-2][COLS-3] gridCenter].x + self.gridCellWidth/2.0f,[matrix[LINS-2][COLS-1] gridCenter].y);
         self.livesLabel = [[SKLabelNode alloc] init];
         self.livesLabel.position = labelPosition;
-        self.livesLabel.fontSize = 20.0f;
+        self.livesLabel.fontSize = 10.0f;
         self.livesLabel.text = [NSString stringWithFormat:@"Vidas: %d", self.lives];
         self.livesLabel.fontColor = [UIColor whiteColor];
         self.livesLabel.fontName = @"ChalkboardSE-Bold";
@@ -126,7 +134,7 @@ static NSString * const kTowerNodeName = @"movable";
         //Label de Rounds
         self.currentRound = 0;
         self.currentRoundLabel = [[SKLabelNode alloc] init];
-        self.currentRoundLabel.fontSize = 20.0f;
+        self.currentRoundLabel.fontSize = 10.0f;
         self.currentRoundLabel.text = @"Nível: 1";
         self.currentRoundLabel.fontColor = [UIColor whiteColor];
         self.currentRoundLabel.fontName = @"ChalkboardSE-Bold";
@@ -137,7 +145,7 @@ static NSString * const kTowerNodeName = @"movable";
         //Label de Score
         self.score = 0;
         self.scoreLabel = [[SKLabelNode alloc] init];
-        self.scoreLabel.fontSize = 20.0f;
+        self.scoreLabel.fontSize = 10.0f;
         self.scoreLabel.text = [NSString stringWithFormat:@"Pontos: %d", self.score];
         self.scoreLabel.fontColor = [UIColor whiteColor];
         self.scoreLabel.fontName = @"ChalkboardSE-Bold";
@@ -176,17 +184,21 @@ static NSString * const kTowerNodeName = @"movable";
     SKSpriteNode *touchedNode = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
     
     //Veirifica se é um novo node selecionado.
-    if(![_selectedNode isEqual:touchedNode]) {
+    if(![_selectedNode isEqual:touchedNode] && [[touchedNode name] isEqualToString:kTowerNodeName]) {
         
         //Ajeita a posição do node.
-        [_selectedNode removeAllActions];
-        [_selectedNode runAction:[SKAction rotateToAngle:0.0f duration:0.01]];
+        if(_selectedNode)
+        {
+            [_selectedNode removeAllActions];
+            _selectedNode.zRotation = 0.0f;
+            //[_selectedNode runAction:[SKAction rotateToAngle:0.0f duration:0.01]];
+        }
         
         //O marca como o selecionado.
         _selectedNode = (TowerClass *) touchedNode;
         
         //Se for uma torre.
-        if([[touchedNode name] isEqualToString:kTowerNodeName]) {
+        if(self.coins >= [_selectedNode getCost]) {
             
             //Guarda a posição original.
             self.originalSelectedNodePosition = self.selectedNode.position;
@@ -197,12 +209,19 @@ static NSString * const kTowerNodeName = @"movable";
                                                       [SKAction rotateByAngle:degToRad(4.0f) duration:0.1]]];
             [_selectedNode runAction:[SKAction repeatActionForever:sequence]];
         }
+        else
+        {
+            _selectedNode = nil;
+        }
     }
     
 }
 
 //Método de quando o usuário solta a tela.
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    if(!_selectedNode)
+        return;
     
     //Guarda a posição do node selecionado.
     CGPoint position = [_selectedNode position];
@@ -217,6 +236,8 @@ static NSString * const kTowerNodeName = @"movable";
         //Se tem espaco, coloca uma torre.
         if([matrix[line][col] placeTower])
         {
+            self.coins -= [_selectedNode getCost];
+            
             //Pega a pos. e o tam. do grid.
             CGPoint positionInGrid = [matrix[line][col] gridCenter];
             
@@ -227,6 +248,9 @@ static NSString * const kTowerNodeName = @"movable";
             [menuSprite setName:kTowerNodeName];
             menuSprite.position = self.originalSelectedNodePosition;
             
+            if([menuSprite getCost] > self.coins)
+                menuSprite.colorBlendFactor = 0.75f;
+            
             [self addChild:menuSprite];
             
             //Coloca a torre na posicao nova.
@@ -235,11 +259,13 @@ static NSString * const kTowerNodeName = @"movable";
             [self.towers addObject:_selectedNode];
             
             [_selectedNode removeAllActions];
+            [self.towersFromMenu removeObject:_selectedNode];
             [_selectedNode runAction:[SKAction rotateToAngle:0.0f duration:0.1]];
             _selectedNode = nil;
             
-            //Mais uma torre criada
-            self.towersCreated++;
+            //Nova torre do Menu
+            [self.towersFromMenu addObject:menuSprite];
+            
         }
         //Se nao tem espaço, volta pro lugar do menu.
         else
@@ -274,6 +300,16 @@ static NSString * const kTowerNodeName = @"movable";
 
 //Método Update.
 - (void)update:(NSTimeInterval)currentTime{
+    
+    //Checa pra ver se o usuario ja pode comprar as torres
+    for(TowerClass * tower in self.towersFromMenu)
+    {
+        if([tower getCost] <= self.coins)
+            tower.colorBlendFactor = 0.0;
+    }
+    
+    if(!self.playable)
+        return;
     
     //Calcula o tempo desde o ultimo update.
     CFTimeInterval timeSinceLast = currentTime - self.lastUpdateTimeInterval;
@@ -508,10 +544,15 @@ static NSString * const kTowerNodeName = @"movable";
     {
         [projectile removeFromParent];
         
+        //Quando mata o monstro, entra no if.
         if([monster causeDamage:[projectile getPowerDamage]])
         {
+            //Menos um monstro no round.
             self.monstersOut++;
             [monster removeFromParent];
+            
+            //Ganha o dinheiro
+            self.coins += [monster getReward];
             
             //Só ganha pontos se não for fase extra.
             if(!self.extraRound)
@@ -576,7 +617,7 @@ static NSString * const kTowerNodeName = @"movable";
     self.playable = YES;
     
     //Fase extra.
-    if(self.currentRound%3==0 && !self.extraRound && self.currentRound!=0)
+    if(self.currentRound%2==0 && !self.extraRound && self.currentRound!=0)
     {
         self.currentRoundLabel.text = @"Nível Extra!";
         self.extraRound = YES;
@@ -588,7 +629,7 @@ static NSString * const kTowerNodeName = @"movable";
         {
             if([grid getGridCellTerrain] == PATHRED)
             {
-                grid.hidden = NO;
+                grid.pathNode.hidden = NO;
             }
         }
         
@@ -605,7 +646,7 @@ static NSString * const kTowerNodeName = @"movable";
         {
             if([grid getGridCellTerrain] == PATHRED)
             {
-                grid.hidden = YES;
+                grid.pathNode.hidden = YES;
             }
         }
     }
@@ -650,10 +691,18 @@ static NSString * const kTowerNodeName = @"movable";
         int lin = index / COLS;
         int col = index % LINS;
         
-        matrix[lin][col] = [[GridClass alloc] initWithI:lin withJ:col ofTerrain:PATHENEMY withImageNamed:nil withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
+        matrix[lin][col] = [[GridClass alloc] initWithI:lin withJ:col ofTerrain:PATHENEMY withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
+        
+        //Cria os sprites do caminho e coloca na tela
+        SKSpriteNode * pathCell = [SKSpriteNode spriteNodeWithColor:[[UIColor alloc] initWithRed:lin/8.0f green:col/8.0f blue:arc4random_uniform(64)/64.0f alpha:0.5f] size:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
+        
+        matrix[lin][col].pathNode = pathCell;
+        
+        pathCell.anchorPoint = CGPointZero;
+        pathCell.position = matrix[lin][col].position;
+        [self addChild:pathCell];
         
         [self.enemyPath addObject:matrix[lin][col]];
-        [self addChild:matrix[lin][col]];
     }
     fscanf(sceneConfig,"%c",&charTemp);
     
@@ -663,11 +712,18 @@ static NSString * const kTowerNodeName = @"movable";
         int lin = index / COLS;
         int col = index % LINS;
         
-        matrix[lin][col] = [[GridClass alloc] initWithI:lin withJ:col ofTerrain:PATHRED withImageNamed:nil withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
+        matrix[lin][col] = [[GridClass alloc] initWithI:lin withJ:col ofTerrain:PATHRED withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
         
-        matrix[lin][col].hidden = YES;
+        //Cria os sprites do caminho e coloca na tela
+        SKSpriteNode * pathCell = [SKSpriteNode spriteNodeWithColor:[[UIColor alloc] initWithRed:lin/8.0f green:col/8.0f blue:arc4random_uniform(64)/64.0f alpha:0.5f] size:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
+        
+        matrix[lin][col].pathNode = pathCell;
+        
+        pathCell.anchorPoint = CGPointZero;
+        pathCell.position = matrix[lin][col].position;
+        pathCell.hidden = YES;
+        [self addChild:pathCell];
         [self.redPath addObject:matrix[lin][col]];
-        [self addChild:matrix[lin][col]];
     }
     fscanf(sceneConfig,"%c",&charTemp);
     
@@ -677,11 +733,19 @@ static NSString * const kTowerNodeName = @"movable";
         int lin = index / COLS;
         int col = index % LINS;
         
-        matrix[lin][col] = [[GridClass alloc] initWithI:lin withJ:col ofTerrain:PATHBOTH withImageNamed:nil withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
+        matrix[lin][col] = [[GridClass alloc] initWithI:lin withJ:col ofTerrain:PATHBOTH withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
+        
+        //Cria os sprites do caminho e coloca na tela
+        SKSpriteNode * pathCell = [SKSpriteNode spriteNodeWithColor:[[UIColor alloc] initWithRed:lin/8.0f green:col/8.0f blue:arc4random_uniform(64)/64.0f alpha:0.5f] size:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
+        
+        matrix[lin][col].pathNode = pathCell;
+        
+        pathCell.anchorPoint = CGPointZero;
+        pathCell.position = matrix[lin][col].position;
+        [self addChild:pathCell];
         
         [self.enemyPath addObject:matrix[lin][col]];
         [self.redPath addObject:matrix[lin][col]];
-        [self addChild:matrix[lin][col]];
     }
     
     
@@ -696,8 +760,7 @@ static NSString * const kTowerNodeName = @"movable";
     {
         for(int col = 0; col < COLS; col++)
         {
-            matrix[lin][col] = [[GridClass alloc] initWithI:lin withJ:col ofTerrain:NIL withImageNamed:nil withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
-            [self addChild:matrix[lin][col]];
+            matrix[lin][col] = [[GridClass alloc] initWithI:lin withJ:col ofTerrain:NIL withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
         }
     }
     
@@ -706,13 +769,13 @@ static NSString * const kTowerNodeName = @"movable";
     {
         for(int col = 0; col < COLS; col++)
         {
-            matrix[lin][col] = [[GridClass alloc] initWithI:lin withJ:col ofTerrain:NIL withImageNamed:nil withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
-            [self addChild:matrix[lin][col]];
+            matrix[lin][col] = [[GridClass alloc] initWithI:lin withJ:col ofTerrain:NIL withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
         }
     }
     
     //Criação do menu de torres
     TypeOfTower towerTypes[NUMOFTOWERTYPES] = {INDIANTOWER,SPACETOWER,BOMBTOWER,FIRETOWER,HERO};
+    self.towersFromMenu = [[NSMutableArray alloc] initWithCapacity:NUMOFTOWERTYPES];
     
     for(int i=0; i < NUMOFTOWERTYPES; i++)
     {
@@ -731,15 +794,23 @@ static NSString * const kTowerNodeName = @"movable";
         //Determina a posição da torre
         int col = COLS-1 - i;
         
-        matrix[2][col] = [[GridClass alloc] initWithI:2 withJ:col ofTerrain:MENU withImageNamed:nil withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
+        matrix[2][col] = [[GridClass alloc] initWithI:2 withJ:col ofTerrain:MENU withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
         
         CGPoint cellCenter = matrix[2][col].gridCenter;
         
         [sprite setPosition:cellCenter];
         
+        //Verifica se o usuário tem o dinheiro para esta torre. Se não tiver, escurece a imagem.
+        if([sprite getCost] > self.coins)
+        {
+            sprite.colorBlendFactor = 0.75f;
+        }
+        
         //Adiciona a torre
-        [self addChild:matrix[2][col]];
         [self addChild:sprite];
+        
+        //Adiciona a torre ao array de torres de menu
+        [self.towersFromMenu addObject:sprite];
     }
     
     //Cria o vetor de torres da fase e seta o numero de torres criadas como zero.
@@ -757,9 +828,7 @@ static NSString * const kTowerNodeName = @"movable";
         {
             if(matrix[i][j] == nil)
             {
-                matrix[i][j] = [[GridClass alloc] initWithI:i withJ:j ofTerrain:PLACEHOLDER withImageNamed:nil withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
-            
-                [self addChild:matrix[i][j]];
+                matrix[i][j] = [[GridClass alloc] initWithI:i withJ:j ofTerrain:PLACEHOLDER withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
             }
         }
     }

@@ -11,6 +11,7 @@
 		4561D5561A797FD800FF16E8 /* RankingScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 4561D5551A797FD800FF16E8 /* RankingScene.m */; };
 		458DCED71A82A7D10050BD01 /* SingleShot.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DCED61A82A7D10050BD01 /* SingleShot.m */; };
 		458DCEDA1A87E86A0050BD01 /* Red.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DCED91A87E86A0050BD01 /* Red.m */; };
+		458DCEDC1A8931620050BD01 /* Background4.png in Resources */ = {isa = PBXBuildFile; fileRef = 458DCEDB1A8931620050BD01 /* Background4.png */; };
 		45BC034C1A7A5C7000528D95 /* FirstScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 45BC034B1A7A5C7000528D95 /* FirstScene.m */; };
 		45BC03501A7A60A300528D95 /* tela.png in Resources */ = {isa = PBXBuildFile; fileRef = 45BC034F1A7A60A300528D95 /* tela.png */; };
 		45BC03521A7A65E000528D95 /* Blackmoor Colossus (No Vocals).mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 45BC03511A7A65E000528D95 /* Blackmoor Colossus (No Vocals).mp3 */; };
@@ -65,6 +66,7 @@
 		458DCED61A82A7D10050BD01 /* SingleShot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleShot.m; sourceTree = "<group>"; };
 		458DCED81A87E86A0050BD01 /* Red.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Red.h; sourceTree = "<group>"; };
 		458DCED91A87E86A0050BD01 /* Red.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Red.m; sourceTree = "<group>"; };
+		458DCEDB1A8931620050BD01 /* Background4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Background4.png; sourceTree = "<group>"; };
 		45BC034A1A7A5C7000528D95 /* FirstScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FirstScene.h; path = ../FirstScene.h; sourceTree = "<group>"; };
 		45BC034B1A7A5C7000528D95 /* FirstScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FirstScene.m; path = ../FirstScene.m; sourceTree = "<group>"; };
 		45BC034F1A7A60A300528D95 /* tela.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tela.png; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				ECCE9D8E1A814003006B04CD /* sceneConfig.txt */,
+				458DCEDB1A8931620050BD01 /* Background4.png */,
 				EC507FA11A7FF7BB003DE0BD /* Ranking.plist */,
 				ECE5E70C1A792CDA00469258 /* arrow.png */,
 				45BC03511A7A65E000528D95 /* Blackmoor Colossus (No Vocals).mp3 */,
@@ -328,6 +331,7 @@
 				ECE5E72A1A792CDA00469258 /* indianTower.png in Resources */,
 				ECE5E7301A792CDA00469258 /* fireTower.png in Resources */,
 				ECCE9D8F1A814003006B04CD /* sceneConfig.txt in Resources */,
+				458DCEDC1A8931620050BD01 /* Background4.png in Resources */,
 				ECE5E72C1A792CDA00469258 /* spaceTower.png in Resources */,
 				ECE5E7361A792CDA00469258 /* enemy_01.png in Resources */,
 				ECE5E72E1A792CDA00469258 /* bombTower.png in Resources */,
@@ -502,7 +506,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -516,7 +520,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

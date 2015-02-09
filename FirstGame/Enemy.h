@@ -32,4 +32,6 @@ typedef enum {
 
 - (int) monsterScore;
 
+-(int) getReward;
+
 @end

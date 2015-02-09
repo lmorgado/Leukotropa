@@ -23,12 +23,14 @@ typedef enum {
 
 
 
-@interface GridClass : SKSpriteNode
+@interface GridClass : NSObject
 
--(instancetype)initWithI: (int) i withJ:(int) j  ofTerrain:(Terrain) t withImageNamed:(NSString*) imgName withSize:(CGSize) size;
+-(instancetype)initWithI: (int) i withJ:(int) j  ofTerrain:(Terrain) t withSize:(CGSize) size;
 - (Terrain)getGridCellTerrain;
 - (BOOL)placeTower;
 - (CGPoint)gridCenter;
 - (void)setTerrain:(Terrain)terrain;
+@property (nonatomic) CGPoint position;
+@property (nonatomic) SKSpriteNode * pathNode;
 
 @end

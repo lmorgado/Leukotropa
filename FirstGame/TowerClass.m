@@ -15,6 +15,7 @@
 @property (nonatomic) BOOL isActive;
 @property (nonatomic) NSString * imgName;
 @property (nonatomic) TypeOfTower type;
+@property (nonatomic) int cost;
 
 @end
 
@@ -69,6 +70,7 @@
                 self.range = 100.0f;
                 self.delay = 0.5f;
                 self.lastSpawnTimeInterval = 5.0f;
+                self.cost = 30;
                 break;
             }
             case SPACETOWER:
@@ -76,6 +78,7 @@
                 self.range = 100.0f;
                 self.delay = 0.5f;
                 self.lastSpawnTimeInterval = 5.0f;
+                self.cost = 50;
                 break;
             }
             case BOMBTOWER:
@@ -83,6 +86,7 @@
                 self.range = 100.0f;
                 self.delay = 0.5f;
                 self.lastSpawnTimeInterval = 5.0f;
+                self.cost = 75;
                 break;
             }
             case FIRETOWER:
@@ -90,6 +94,7 @@
                 self.range = 100.0f;
                 self.delay = 0.5f;
                 self.lastSpawnTimeInterval = 5.0f;
+                self.cost = 100;
                 break;
             }
             default:
@@ -125,6 +130,11 @@
 -(TypeOfTower)getType
 {
     return self.type;
+}
+
+-(int)getCost
+{
+    return self.cost;
 }
 
 @end
