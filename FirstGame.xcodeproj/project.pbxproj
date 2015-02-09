@@ -12,6 +12,17 @@
 		458DCED71A82A7D10050BD01 /* SingleShot.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DCED61A82A7D10050BD01 /* SingleShot.m */; };
 		458DCEDA1A87E86A0050BD01 /* Red.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DCED91A87E86A0050BD01 /* Red.m */; };
 		458DCEDC1A8931620050BD01 /* Background4.png in Resources */ = {isa = PBXBuildFile; fileRef = 458DCEDB1A8931620050BD01 /* Background4.png */; };
+		458DCEE91A89331C0050BD01 /* grid_a.png in Resources */ = {isa = PBXBuildFile; fileRef = 458DCEDE1A89331C0050BD01 /* grid_a.png */; };
+		458DCEEA1A89331C0050BD01 /* grid_b.png in Resources */ = {isa = PBXBuildFile; fileRef = 458DCEDF1A89331C0050BD01 /* grid_b.png */; };
+		458DCEEB1A89331C0050BD01 /* grid_c.png in Resources */ = {isa = PBXBuildFile; fileRef = 458DCEE01A89331C0050BD01 /* grid_c.png */; };
+		458DCEEC1A89331C0050BD01 /* grid_d.png in Resources */ = {isa = PBXBuildFile; fileRef = 458DCEE11A89331C0050BD01 /* grid_d.png */; };
+		458DCEED1A89331C0050BD01 /* grid_e.png in Resources */ = {isa = PBXBuildFile; fileRef = 458DCEE21A89331C0050BD01 /* grid_e.png */; };
+		458DCEEE1A89331C0050BD01 /* grid_f.png in Resources */ = {isa = PBXBuildFile; fileRef = 458DCEE31A89331C0050BD01 /* grid_f.png */; };
+		458DCEEF1A89331C0050BD01 /* grid_g.png in Resources */ = {isa = PBXBuildFile; fileRef = 458DCEE41A89331C0050BD01 /* grid_g.png */; };
+		458DCEF01A89331C0050BD01 /* grid_h.png in Resources */ = {isa = PBXBuildFile; fileRef = 458DCEE51A89331C0050BD01 /* grid_h.png */; };
+		458DCEF11A89331C0050BD01 /* grid_i.png in Resources */ = {isa = PBXBuildFile; fileRef = 458DCEE61A89331C0050BD01 /* grid_i.png */; };
+		458DCEF21A89331C0050BD01 /* grid_j.png in Resources */ = {isa = PBXBuildFile; fileRef = 458DCEE71A89331C0050BD01 /* grid_j.png */; };
+		458DCEF31A89331C0050BD01 /* grid_k.png in Resources */ = {isa = PBXBuildFile; fileRef = 458DCEE81A89331C0050BD01 /* grid_k.png */; };
 		45BC034C1A7A5C7000528D95 /* FirstScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 45BC034B1A7A5C7000528D95 /* FirstScene.m */; };
 		45BC03501A7A60A300528D95 /* tela.png in Resources */ = {isa = PBXBuildFile; fileRef = 45BC034F1A7A60A300528D95 /* tela.png */; };
 		45BC03521A7A65E000528D95 /* Blackmoor Colossus (No Vocals).mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 45BC03511A7A65E000528D95 /* Blackmoor Colossus (No Vocals).mp3 */; };
@@ -67,6 +78,17 @@
 		458DCED81A87E86A0050BD01 /* Red.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Red.h; sourceTree = "<group>"; };
 		458DCED91A87E86A0050BD01 /* Red.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Red.m; sourceTree = "<group>"; };
 		458DCEDB1A8931620050BD01 /* Background4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Background4.png; sourceTree = "<group>"; };
+		458DCEDE1A89331C0050BD01 /* grid_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid_a.png; sourceTree = "<group>"; };
+		458DCEDF1A89331C0050BD01 /* grid_b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid_b.png; sourceTree = "<group>"; };
+		458DCEE01A89331C0050BD01 /* grid_c.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid_c.png; sourceTree = "<group>"; };
+		458DCEE11A89331C0050BD01 /* grid_d.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid_d.png; sourceTree = "<group>"; };
+		458DCEE21A89331C0050BD01 /* grid_e.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid_e.png; sourceTree = "<group>"; };
+		458DCEE31A89331C0050BD01 /* grid_f.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid_f.png; sourceTree = "<group>"; };
+		458DCEE41A89331C0050BD01 /* grid_g.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid_g.png; sourceTree = "<group>"; };
+		458DCEE51A89331C0050BD01 /* grid_h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid_h.png; sourceTree = "<group>"; };
+		458DCEE61A89331C0050BD01 /* grid_i.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid_i.png; sourceTree = "<group>"; };
+		458DCEE71A89331C0050BD01 /* grid_j.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid_j.png; sourceTree = "<group>"; };
+		458DCEE81A89331C0050BD01 /* grid_k.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid_k.png; sourceTree = "<group>"; };
 		45BC034A1A7A5C7000528D95 /* FirstScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FirstScene.h; path = ../FirstScene.h; sourceTree = "<group>"; };
 		45BC034B1A7A5C7000528D95 /* FirstScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FirstScene.m; path = ../FirstScene.m; sourceTree = "<group>"; };
 		45BC034F1A7A60A300528D95 /* tela.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tela.png; sourceTree = "<group>"; };
@@ -134,9 +156,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		458DCEDD1A8932ED0050BD01 /* PathImages */ = {
+			isa = PBXGroup;
+			children = (
+				458DCEDE1A89331C0050BD01 /* grid_a.png */,
+				458DCEDF1A89331C0050BD01 /* grid_b.png */,
+				458DCEE01A89331C0050BD01 /* grid_c.png */,
+				458DCEE11A89331C0050BD01 /* grid_d.png */,
+				458DCEE21A89331C0050BD01 /* grid_e.png */,
+				458DCEE31A89331C0050BD01 /* grid_f.png */,
+				458DCEE41A89331C0050BD01 /* grid_g.png */,
+				458DCEE51A89331C0050BD01 /* grid_h.png */,
+				458DCEE61A89331C0050BD01 /* grid_i.png */,
+				458DCEE71A89331C0050BD01 /* grid_j.png */,
+				458DCEE81A89331C0050BD01 /* grid_k.png */,
+			);
+			name = PathImages;
+			sourceTree = "<group>";
+		};
 		ECE5E6C81A7926B200469258 = {
 			isa = PBXGroup;
 			children = (
+				458DCEDD1A8932ED0050BD01 /* PathImages */,
 				ECCE9D8E1A814003006B04CD /* sceneConfig.txt */,
 				458DCEDB1A8931620050BD01 /* Background4.png */,
 				EC507FA11A7FF7BB003DE0BD /* Ranking.plist */,
@@ -330,22 +371,33 @@
 				ECE5E6E71A7926B200469258 /* Images.xcassets in Resources */,
 				ECE5E72A1A792CDA00469258 /* indianTower.png in Resources */,
 				ECE5E7301A792CDA00469258 /* fireTower.png in Resources */,
+				458DCEEE1A89331C0050BD01 /* grid_f.png in Resources */,
+				458DCEF21A89331C0050BD01 /* grid_j.png in Resources */,
 				ECCE9D8F1A814003006B04CD /* sceneConfig.txt in Resources */,
 				458DCEDC1A8931620050BD01 /* Background4.png in Resources */,
+				458DCEEC1A89331C0050BD01 /* grid_d.png in Resources */,
+				458DCEEA1A89331C0050BD01 /* grid_b.png in Resources */,
 				ECE5E72C1A792CDA00469258 /* spaceTower.png in Resources */,
+				458DCEF01A89331C0050BD01 /* grid_h.png in Resources */,
+				458DCEF31A89331C0050BD01 /* grid_k.png in Resources */,
 				ECE5E7361A792CDA00469258 /* enemy_01.png in Resources */,
 				ECE5E72E1A792CDA00469258 /* bombTower.png in Resources */,
 				45BC03501A7A60A300528D95 /* tela.png in Resources */,
 				ECE5E6DF1A7926B200469258 /* GameScene.sks in Resources */,
 				EC507FA21A7FF7BB003DE0BD /* Ranking.plist in Resources */,
+				458DCEED1A89331C0050BD01 /* grid_e.png in Resources */,
+				458DCEEB1A89331C0050BD01 /* grid_c.png in Resources */,
 				45BC03521A7A65E000528D95 /* Blackmoor Colossus (No Vocals).mp3 in Resources */,
 				ECE5E7281A792CDA00469258 /* arrow.png in Resources */,
+				458DCEE91A89331C0050BD01 /* grid_a.png in Resources */,
 				ECE5E7321A792CDA00469258 /* enemy_00.png in Resources */,
 				ECE5E73C1A792CDA00469258 /* red.png in Resources */,
 				ECE5E7401A792CDA00469258 /* Mons12.png in Resources */,
 				ECE5E73A1A792CDA00469258 /* enemy_03.png in Resources */,
 				ECE5E7341A792CDA00469258 /* hero.png in Resources */,
 				ECE5E6E51A7926B200469258 /* Main.storyboard in Resources */,
+				458DCEEF1A89331C0050BD01 /* grid_g.png in Resources */,
+				458DCEF11A89331C0050BD01 /* grid_i.png in Resources */,
 				ECE5E7421A792CDA00469258 /* opçao_01.jpg in Resources */,
 				ECE5E73E1A792CDA00469258 /* Mons 9.png in Resources */,
 				ECE5E7381A792CDA00469258 /* enemy_02.png in Resources */,

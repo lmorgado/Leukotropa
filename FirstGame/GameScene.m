@@ -67,6 +67,9 @@ static NSString * const kTowerNodeName = @"movable";
 
 @property (nonatomic) int monstersOut;
 
+@property (nonatomic) int unionGridIndex;
+@property (nonatomic) char UnionGridSecondType;
+
 @end
 
 @implementation GameScene
@@ -633,6 +636,13 @@ static NSString * const kTowerNodeName = @"movable";
             }
         }
         
+        //Mudar pathCell de união.
+        int lin = self.unionGridIndex / COLS;
+        int col = self.unionGridIndex % LINS;
+        NSString * imgName = [NSString stringWithFormat:@"grid_%c", self.UnionGridSecondType];
+        UIImage *img = [UIImage imageNamed:imgName];
+        [matrix[lin][col].pathNode setTexture:[SKTexture textureWithImage:img]];
+        
     }
     //Fase regular
     else
@@ -649,6 +659,13 @@ static NSString * const kTowerNodeName = @"movable";
                 grid.pathNode.hidden = YES;
             }
         }
+        
+        //Mudar pathCell de união.
+        int lin = self.unionGridIndex / COLS;
+        int col = self.unionGridIndex % LINS;
+        NSString * imgName = [NSString stringWithFormat:@"grid_%c", matrix[lin][col].kind];
+        UIImage *img = [UIImage imageNamed:imgName];
+        [matrix[lin][col].pathNode setTexture:[SKTexture textureWithImage:img]];
     }
     
     [self createMonsters];
@@ -664,6 +681,7 @@ static NSString * const kTowerNodeName = @"movable";
     char strTemp[100];
     char levelString[10];
     char charTemp;
+    char kind, kindB;
     
     sprintf(levelString, "#level-%d#", level);
     
@@ -686,15 +704,20 @@ static NSString * const kTowerNodeName = @"movable";
     self.redPath = [[NSMutableArray alloc] init];
     
     //EnemyOnly
-    while(fscanf(sceneConfig, "%d", &index) == 1)
+    while(fscanf(sceneConfig, "%d%c", &index, &kind) == 2)
     {
         int lin = index / COLS;
         int col = index % LINS;
         
+        NSString * imgName = [NSString stringWithFormat:@"grid_%c.png",kind];
+        
         matrix[lin][col] = [[GridClass alloc] initWithI:lin withJ:col ofTerrain:PATHENEMY withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
         
+        matrix[lin][col].kind = kind;
+        
         //Cria os sprites do caminho e coloca na tela
-        SKSpriteNode * pathCell = [SKSpriteNode spriteNodeWithColor:[[UIColor alloc] initWithRed:lin/8.0f green:col/8.0f blue:arc4random_uniform(64)/64.0f alpha:0.5f] size:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
+        SKSpriteNode * pathCell = [SKSpriteNode spriteNodeWithImageNamed:imgName];
+        pathCell.size =CGSizeMake(self.gridCellWidth, self.gridCellHeight);
         
         matrix[lin][col].pathNode = pathCell;
         
@@ -707,15 +730,19 @@ static NSString * const kTowerNodeName = @"movable";
     fscanf(sceneConfig,"%c",&charTemp);
     
     //RedOnly
-    while(fscanf(sceneConfig, "%d", &index) == 1)
+    while(fscanf(sceneConfig, "%d%c", &index, &kind) == 2)
     {
         int lin = index / COLS;
         int col = index % LINS;
         
+        NSString * imgName = [NSString stringWithFormat:@"grid_%c.png",kind];
+        
         matrix[lin][col] = [[GridClass alloc] initWithI:lin withJ:col ofTerrain:PATHRED withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
+        matrix[lin][col].kind = kind;
         
         //Cria os sprites do caminho e coloca na tela
-        SKSpriteNode * pathCell = [SKSpriteNode spriteNodeWithColor:[[UIColor alloc] initWithRed:lin/8.0f green:col/8.0f blue:arc4random_uniform(64)/64.0f alpha:0.5f] size:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
+        SKSpriteNode * pathCell = [SKSpriteNode spriteNodeWithImageNamed:imgName];
+        pathCell.size =CGSizeMake(self.gridCellWidth, self.gridCellHeight);
         
         matrix[lin][col].pathNode = pathCell;
         
@@ -727,16 +754,21 @@ static NSString * const kTowerNodeName = @"movable";
     }
     fscanf(sceneConfig,"%c",&charTemp);
     
+    int flag = 0;
     //Both
-    while(fscanf(sceneConfig, "%d", &index) == 1)
+    while(fscanf(sceneConfig, "%d%c", &index, &kind) == 2)
     {
         int lin = index / COLS;
         int col = index % LINS;
         
+        NSString * imgName = [NSString stringWithFormat:@"grid_%c.png",kind];
+        
         matrix[lin][col] = [[GridClass alloc] initWithI:lin withJ:col ofTerrain:PATHBOTH withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
+        matrix[lin][col].kind = kind;
         
         //Cria os sprites do caminho e coloca na tela
-        SKSpriteNode * pathCell = [SKSpriteNode spriteNodeWithColor:[[UIColor alloc] initWithRed:lin/8.0f green:col/8.0f blue:arc4random_uniform(64)/64.0f alpha:0.5f] size:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
+        SKSpriteNode * pathCell = [SKSpriteNode spriteNodeWithImageNamed:imgName];
+        pathCell.size =CGSizeMake(self.gridCellWidth, self.gridCellHeight);
         
         matrix[lin][col].pathNode = pathCell;
         
@@ -746,6 +778,15 @@ static NSString * const kTowerNodeName = @"movable";
         
         [self.enemyPath addObject:matrix[lin][col]];
         [self.redPath addObject:matrix[lin][col]];
+        
+        //Se for o grid de juncao
+        if(flag==0)
+        {
+            flag=1;
+            fscanf(sceneConfig, "%c", &kindB);
+            self.unionGridIndex = index;
+            self.UnionGridSecondType = kindB;
+        }
     }
     
     
@@ -951,7 +992,6 @@ static NSString * const kTowerNodeName = @"movable";
     self.scoreLabel.text = [NSString stringWithFormat:@"Pontos: %d", self.score];
     self.scoreLabel.position = CGPointMake(self.scoreLabel.frame.size.width/2, [matrix[LINS-2][COLS-1] gridCenter].y);
 }
-
 
 
 @end

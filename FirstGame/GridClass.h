@@ -32,5 +32,6 @@ typedef enum {
 - (void)setTerrain:(Terrain)terrain;
 @property (nonatomic) CGPoint position;
 @property (nonatomic) SKSpriteNode * pathNode;
+@property (nonatomic) char kind;
 
 @end
