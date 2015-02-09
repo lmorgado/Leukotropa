@@ -13,5 +13,6 @@
 //@property (nonatomic) UIButton *rankingButton;
 
 - (void) removeLife:(int)damage;
+- (void)extraPoints: (int)points;
 
 @end

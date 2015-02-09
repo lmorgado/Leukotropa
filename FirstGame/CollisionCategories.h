@@ -11,5 +11,6 @@
 
 static const uint32_t projectileCategory     =  0x1 << 0;
 static const uint32_t monsterCategory        =  0x1 << 1;
+static const uint32_t redCategory            =  0x1 << 2;
 
 #endif

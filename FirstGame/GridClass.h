@@ -10,7 +10,9 @@
 
 typedef enum {
     
-    PATH,
+    PATHENEMY,
+    PATHRED,
+    PATHBOTH,
     NIL,
     PLACEHOLDER,
     MENU,

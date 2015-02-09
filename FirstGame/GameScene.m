@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 Jordan Rodrigues Rangel. All rights reserved.
 //
 
-//Oi Jordaaaaaaan
-
 #import <AVFoundation/AVFoundation.h>
 #import "GameScene.h"
 #import "GridClass.h"
@@ -18,13 +16,15 @@
 #import "GameOverScene.h"
 #import "RankingScene.h"
 #import "SingleShot.h"
+#import "Red.h"
 
 
 #define COLS 16
 #define LINS 16
 #define MONSTERS_SIZE 5
 #define TOWERS_SIZE 10
-#define NUMBER_OF_LIVES 5
+#define NUMBER_OF_LIVES 50
+#define NUMBER_OF_REDS 50
 
 static NSString * const kTowerNodeName = @"movable";
 
@@ -40,9 +40,12 @@ static NSString * const kTowerNodeName = @"movable";
 @property (nonatomic, strong) TowerClass *selectedNode;
 @property (nonatomic) CGPoint originalSelectedNodePosition;
 @property (nonatomic) NSMutableArray *monsters;
+@property (nonatomic) NSMutableArray *reds;
 @property (nonatomic) NSTimeInterval lastSpawnTimeInterval;
+@property (nonatomic) NSTimeInterval lastRedSpawnTimeInterval;
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
 @property (nonatomic) int monstersRespawned;
+@property (nonatomic) int redsRespawned;
 @property (nonatomic) NSMutableArray * towers;
 @property (nonatomic) int towersCreated;
 
@@ -55,8 +58,10 @@ static NSString * const kTowerNodeName = @"movable";
 @property (nonatomic) SKLabelNode *currentRoundLabel;
 @property (nonatomic) int score;
 @property (nonatomic) SKLabelNode *scoreLabel;
+@property (nonatomic) BOOL extraRound;
 
-@property (nonatomic) NSMutableArray * path;
+@property (nonatomic) NSMutableArray * enemyPath;
+@property (nonatomic) NSMutableArray * redPath;
 
 @property (nonatomic) int monstersOut;
 
@@ -112,7 +117,7 @@ static NSString * const kTowerNodeName = @"movable";
         
         //Botao de Rounds
         self.playable = NO;
-        self.roundButton = [[UIButton alloc] initWithFrame:CGRectMake([matrix[0][5] gridCenter].x - (self.gridCellWidth/2), size.height - [matrix[0][6] gridCenter].y - (self.gridCellHeight/2), 4*self.gridCellWidth, self.gridCellHeight)];
+        self.roundButton = [[UIButton alloc] initWithFrame:CGRectMake([matrix[0][5] gridCenter].x - (self.gridCellWidth/2), size.height - [matrix[0][6] gridCenter].y - (self.gridCellHeight/2), 6*self.gridCellWidth, self.gridCellHeight)];
         [self.roundButton setTitle:@"Começar Round" forState:UIControlStateNormal];
         self.roundButton.backgroundColor = [[UIColor alloc] initWithRed:0.9f green:0.2f blue:0.6f alpha:0.6];
         [self.roundButton addTarget:self action:@selector(startRound) forControlEvents:UIControlEventTouchUpInside];
@@ -290,7 +295,7 @@ static NSString * const kTowerNodeName = @"movable";
     //Testa pra ver se ainda há monstros no round.
     if(self.monstersOut < [self.monsters count])
     {
-        //Respawn
+        //Respawn de monstros
         self.lastSpawnTimeInterval += timeSinceLast;
         
         if(self.lastSpawnTimeInterval > 0.5  && self.playable && self.monstersRespawned < [self.monsters count])
@@ -309,21 +314,60 @@ static NSString * const kTowerNodeName = @"movable";
             CGMutablePathRef actionPath = CGPathCreateMutable();
             CGPathMoveToPoint(actionPath, NULL, enemy.position.x, enemy.position.y);
             
-            int pathSize = [self.path count];
+            int pathSize = [self.enemyPath count];
             
             for(int i=0;i<pathSize;i++)
             {
-                CGPathAddLineToPoint(actionPath, NULL, [self.path[i] gridCenter].x, [self.path[i] gridCenter].y);
+                CGPathAddLineToPoint(actionPath, NULL, [self.enemyPath[i] gridCenter].x, [self.enemyPath[i] gridCenter].y);
                 if(i < (pathSize-1))
-                    pathLength += rwLength(rwSub([self.path[i+1] gridCenter], [self.path[i] gridCenter]));
+                    pathLength += rwLength(rwSub([self.enemyPath[i+1] gridCenter], [self.enemyPath[i] gridCenter]));
             }
         
             pathLength += self.gridCellWidth/2.0f + enemy.size.width/2.0f;
-            CGPathAddLineToPoint(actionPath, NULL, [self.path[pathSize-1] gridCenter].x + self.gridCellWidth/2.0f + enemy.size.width/2.0f, [self.path[pathSize-1] gridCenter].y);
+            CGPathAddLineToPoint(actionPath, NULL, [self.enemyPath[pathSize-1] gridCenter].x + self.gridCellWidth/2.0f + enemy.size.width/2.0f, [self.enemyPath[pathSize-1] gridCenter].y);
         
             //Envia o caminho a ser percorrido para o monstro.
             [enemy moveTo:actionPath pathLength:pathLength gameScene:self];
         
+        }
+        
+        //Criação dos Reds
+        if(self.extraRound)
+        {
+            self.lastRedSpawnTimeInterval +=timeSinceLast;
+            
+            if(self.lastRedSpawnTimeInterval > 0.2  && self.playable && self.redsRespawned < [self.reds count])
+            {
+                self.lastRedSpawnTimeInterval = 0;
+                
+                //Cria o ponteiro para o Red
+                Red * red = self.reds[self.redsRespawned];
+                self.redsRespawned++;
+                
+                [self addChild:red];
+                
+                //Cria o caminho a ser percorrido pelo Red.
+                float pathLength = 0.0f;
+                
+                CGMutablePathRef actionPath = CGPathCreateMutable();
+                CGPathMoveToPoint(actionPath, NULL, red.position.x, red.position.y);
+                
+                int pathSize = [self.redPath count];
+                
+                for(int i=0;i<pathSize;i++)
+                {
+                    CGPathAddLineToPoint(actionPath, NULL, [self.redPath[i] gridCenter].x, [self.redPath[i] gridCenter].y);
+                    if(i < (pathSize-1))
+                        pathLength += rwLength(rwSub([self.redPath[i+1] gridCenter], [self.redPath[i] gridCenter]));
+                }
+                
+                pathLength += self.gridCellWidth/2.0f + red.size.width/2.0f;
+                CGPathAddLineToPoint(actionPath, NULL, [self.redPath[pathSize-1] gridCenter].x + self.gridCellWidth/2.0f + red.size.width/2.0f, [self.redPath[pathSize-1] gridCenter].y);
+                
+                //Envia o caminho a ser percorrido para o Red.
+                [red moveTo:actionPath pathLength:pathLength gameScene:self];
+            }
+            
         }
         
         [self towerMonitoringwithTimeSinceLastUpdate: timeSinceLast];
@@ -447,6 +491,14 @@ static NSString * const kTowerNodeName = @"movable";
     {
         [self projectile:(ProjectileClass *) firstBody.node didCollideWithMonster:(Enemy *) secondBody.node];
     }
+    
+    if ((firstBody.categoryBitMask & monsterCategory) != 0 &&
+        (secondBody.categoryBitMask & redCategory) != 0)
+    {
+        Red * red = (Red*) secondBody.node;
+        [red killRed];
+        
+    }
 }
 
 // Método que trata a colisão entre projétil e monstro
@@ -459,10 +511,15 @@ static NSString * const kTowerNodeName = @"movable";
         if([monster causeDamage:[projectile getPowerDamage]])
         {
             self.monstersOut++;
-            self.score+= [monster monsterScore];
-            self.scoreLabel.text = [NSString stringWithFormat:@"Pontos: %d", self.score];
-            self.scoreLabel.position = CGPointMake(self.scoreLabel.frame.size.width/2, [matrix[LINS-1][COLS-1] gridCenter].y);
             [monster removeFromParent];
+            
+            //Só ganha pontos se não for fase extra.
+            if(!self.extraRound)
+            {
+                self.score+= [monster monsterScore];
+                self.scoreLabel.text = [NSString stringWithFormat:@"Pontos: %d", self.score];
+                self.scoreLabel.position = CGPointMake(self.scoreLabel.frame.size.width/2, [matrix[LINS-2][COLS-1] gridCenter].y);
+            }
         }
     }
 }
@@ -470,11 +527,15 @@ static NSString * const kTowerNodeName = @"movable";
 //Método para remover vidas do usuário
 - (void) removeLife:(int)damage
 {
+    
     //Menos um monstro no jogo.
     self.monstersOut++;
     
     //Tira a vida do usuário.
-    self.lives-= damage;
+    if(!self.extraRound)
+    {
+        self.lives-= damage;
+    }
     
     //Não deixa vida negativa.
     if(self.lives < 0) self.lives = 0;
@@ -508,17 +569,48 @@ static NSString * const kTowerNodeName = @"movable";
 - (void) startRound
 {
     
+    //Atualizações de novo round.
     self.roundButton.hidden = YES;
-    self.currentRound++;
     self.monstersOut = 0;
-    self.currentRoundLabel.text = [NSString stringWithFormat:@"Nível: %d", self.currentRound];
-    
     self.lastSpawnTimeInterval = 5;
+    self.playable = YES;
+    
+    //Fase extra.
+    if(self.currentRound%3==0 && !self.extraRound && self.currentRound!=0)
+    {
+        self.currentRoundLabel.text = @"Nível Extra!";
+        self.extraRound = YES;
+        self.redsRespawned = 0;
+        [self createReds];
+        
+        //Mostrar entrada dos reds
+        for (GridClass *grid in self.redPath)
+        {
+            if([grid getGridCellTerrain] == PATHRED)
+            {
+                grid.hidden = NO;
+            }
+        }
+        
+    }
+    //Fase regular
+    else
+    {
+        self.extraRound = NO;
+        self.currentRound++;
+        self.currentRoundLabel.text = [NSString stringWithFormat:@"Nível: %d", self.currentRound];
+        
+        //Mostrar entrada dos reds
+        for (GridClass *grid in self.redPath)
+        {
+            if([grid getGridCellTerrain] == PATHRED)
+            {
+                grid.hidden = YES;
+            }
+        }
+    }
     
     [self createMonsters];
-    
-    
-    self.playable = YES;
 
 }
 
@@ -530,6 +622,7 @@ static NSString * const kTowerNodeName = @"movable";
     FILE* sceneConfig = fopen([scenePath UTF8String], "r");
     char strTemp[100];
     char levelString[10];
+    char charTemp;
     
     sprintf(levelString, "#level-%d#", level);
     
@@ -548,22 +641,49 @@ static NSString * const kTowerNodeName = @"movable";
     
     int index;
     
-    self.path = [[NSMutableArray alloc] init];
+    self.enemyPath = [[NSMutableArray alloc] init];
+    self.redPath = [[NSMutableArray alloc] init];
     
+    //EnemyOnly
     while(fscanf(sceneConfig, "%d", &index) == 1)
     {
         int lin = index / COLS;
         int col = index % LINS;
         
-        matrix[lin][col] = [[GridClass alloc] initWithI:lin withJ:col ofTerrain:PATH withImageNamed:nil withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
+        matrix[lin][col] = [[GridClass alloc] initWithI:lin withJ:col ofTerrain:PATHENEMY withImageNamed:nil withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
         
-        [self.path addObject:matrix[lin][col]];
+        [self.enemyPath addObject:matrix[lin][col]];
+        [self addChild:matrix[lin][col]];
+    }
+    fscanf(sceneConfig,"%c",&charTemp);
+    
+    //RedOnly
+    while(fscanf(sceneConfig, "%d", &index) == 1)
+    {
+        int lin = index / COLS;
+        int col = index % LINS;
+        
+        matrix[lin][col] = [[GridClass alloc] initWithI:lin withJ:col ofTerrain:PATHRED withImageNamed:nil withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
+        
+        matrix[lin][col].hidden = YES;
+        [self.redPath addObject:matrix[lin][col]];
+        [self addChild:matrix[lin][col]];
+    }
+    fscanf(sceneConfig,"%c",&charTemp);
+    
+    //Both
+    while(fscanf(sceneConfig, "%d", &index) == 1)
+    {
+        int lin = index / COLS;
+        int col = index % LINS;
+        
+        matrix[lin][col] = [[GridClass alloc] initWithI:lin withJ:col ofTerrain:PATHBOTH withImageNamed:nil withSize:CGSizeMake(self.gridCellWidth, self.gridCellHeight)];
+        
+        [self.enemyPath addObject:matrix[lin][col]];
+        [self.redPath addObject:matrix[lin][col]];
         [self addChild:matrix[lin][col]];
     }
     
-    fscanf(sceneConfig, " %[^\n]", strTemp);
-    
-    printf("%s",strTemp);
     
     fclose(sceneConfig);
 }
@@ -663,7 +783,7 @@ static NSString * const kTowerNodeName = @"movable";
     self.monstersRespawned = 0;
     
     //Posição inicial dos monstros
-    GridClass * firstGrid = self.path[0];
+    GridClass * firstGrid = self.enemyPath[0];
     
     
     //Cria os monstros fracos
@@ -717,6 +837,34 @@ static NSString * const kTowerNodeName = @"movable";
     return enemy;
 }
 
+//Método de criação dos reds.
+-(void)createReds
+{
+    //Aloca o novo vetor de reds
+    self.reds = [[NSMutableArray alloc] init];
+    
+    //Posição inicial dos reds
+    GridClass * firstGrid = self.redPath[0];
+    
+    //Cria todos os reds.
+    for(int i=0; i<NUMBER_OF_REDS; i++)
+    {
+        //Cria um novo red.
+        Red * red = [[Red alloc] initWithPosition:[firstGrid gridCenter]];
+        
+        //Fîsica do Red
+        red.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:red.size];
+        red.physicsBody.dynamic = YES;
+        red.physicsBody.categoryBitMask = redCategory;
+        red.physicsBody.contactTestBitMask = monsterCategory;
+        red.physicsBody.collisionBitMask = 0;
+        
+        //Coloca o novo Red no vetor de Reds.
+        [self.reds addObject:red];
+    }
+    
+}
+
 //Shuffle Array
 - (void)shuffleArray: (NSMutableArray*) array withSize:(int)size
 {
@@ -725,6 +873,14 @@ static NSString * const kTowerNodeName = @"movable";
         NSInteger exchangeIndex = i + arc4random_uniform((u_int32_t )remainingCount);
         [array exchangeObjectAtIndex:i withObjectAtIndex:exchangeIndex];
     }
+}
+
+//Método de pontos extras na fase extra
+-(void)extraPoints: (int)points
+{
+    self.score+= points;
+    self.scoreLabel.text = [NSString stringWithFormat:@"Pontos: %d", self.score];
+    self.scoreLabel.position = CGPointMake(self.scoreLabel.frame.size.width/2, [matrix[LINS-2][COLS-1] gridCenter].y);
 }
 
 
